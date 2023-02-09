@@ -1,0 +1,87 @@
+version: "3.9"
+
+services:
+  web:
+    container_name: web_app
+    build:
+      context: ./docker/web
+    volumes:
+      - type: bind
+        source: ./docker/web/etc/apache2/sites-available
+        target: /etc/apache2/sites-available
+      - type: bind
+        source: ./docker/web/docs
+        target: /var/www/sites/app.local.com
+      - ${VHOSTS_DIR:-~/www}:/var/www/vhosts
+    working_dir: /var/www/sites/app.local.com
+    ports:
+      - "${BIND_WEB_HOST:-127.0.0.1}:${BIND_WEB_HOST_PORT:-80}:80"
+    tty: true
+    stdin_open: true
+    depends_on:
+      - db
+    networks:
+      app_network:
+        ipv4_address: ${IPV4_NETWORK:-172.25.2}.10
+        aliases:
+          - application
+
+  db:
+    container_name: web_app_db
+    build: ./docker/mysql
+    ports:
+      - "${BIND_DB_HOST:-127.0.0.1}:${BIND_DB_HOST_PORT:-3308}:3306"
+    volumes:
+      - data:/var/lib/mysql/
+    env_file:
+      - ./docker/mysql/vars.env
+    networks:
+      app_network:
+        ipv4_address: ${IPV4_NETWORK:-172.25.2}.11
+        aliases:
+          - database
+
+  redis:
+    container_name: web_app_redis
+    build:
+      context: ./docker/redis
+    restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+    ports:
+      - "${BIND_REDIS_PORT:-6379}:6379"
+    volumes:
+      - "./docker/redis/redis.conf:/etc/redis.conf"
+      - "redis:/storage"
+    networks:
+      app_network:
+        ipv4_address: ${IPV4_NETWORK:-172.25.2}.12
+        aliases:
+          - redis_store
+
+volumes:
+  data:
+    driver: local
+  webdocs:
+    driver: local
+    driver_opts:
+      type: "none"
+      o: "bind"
+      device: "${HOME}/www"
+  redis:
+    driver: local
+    driver_opts:
+      type: "none"
+      o: "bind"
+      device: "./docker/redis/storage"
+
+networks:
+  app_network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: ${IPV4_NETWORK:-172.25.2}.0/24
+          gateway: ${IPV4_NETWORK:-172.25.2}.1
