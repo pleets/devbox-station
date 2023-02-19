@@ -2,19 +2,19 @@
 
 This project allows you to execute a PHP web based environment to execute your personal or business projects.
 
-# 1. Requirements
+## 1. Requirements
 
 You need the following software to run this project.
 
 - Docker
 - Docker compose
 
-# 2. Configuration
+## :gear: 2. Configuration
 
 Configuration is one of the most important things when you're setting up your projects. You can set up several
 components and customize this project as your desire.
 
-# 2.1 Web folder
+### 2.1 Web folder
 
 You need a folder inside your machine in which your web project files are located. By default, ~/www is taken.
 You can set up another folder with the env var. 
@@ -23,7 +23,7 @@ You can set up another folder with the env var.
 VHOSTS_DIR=~/www
 ```
 
-# 2.2 Host names
+### 2.2 Host names
 
 You need to set up the following hostnames in you local machine hosts file.
 
@@ -39,7 +39,7 @@ BIND_WEB_HOST=127.0.0.1
 BIND_WEB_HOST_PORT=80
 ```
 
-# 2.3 Other services
+### 2.3 Other services
 
 Usually if you have mysql, redis or other services installed locally in your machine you'll need to change
 the bindings for that services in the container. Look at the following values to set up those services. The
@@ -64,9 +64,9 @@ BIND_REDIS_PORT=6379
 IPV4_NETWORK=172.25.2
 ```
 
-# 3. Usage
+## :books: 3. Usage
 
-# 3.1 Running the project
+### 3.1 Running the project
 
 Execute the following command in the root project folder to build and start containers.
 
