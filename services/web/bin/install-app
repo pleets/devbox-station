@@ -1,0 +1,37 @@
+#!/bin/sh
+
+set -o errexit
+
+cd /var/www/sites/app.local.com
+
+# ----------------------
+# LARAVEL INSTALLATION
+# ----------------------
+echo "**** Installing Laravel application ****"
+
+composer install
+
+echo "*--> setting up permissions..."
+chmod -R a+w storage
+chmod a+w bootstrap/cache
+
+# check if .env file exists before create it
+if [ ! -f ".env" ]; then
+    echo "*--> creating env file..."
+    cp .env.docker .env
+    php artisan key:generate
+fi
+
+echo "Continue with refreshing the database from scratch? (y/n)"
+
+read -r refresh
+
+if [ "$refresh" = "y" ]; then
+    echo "*--> installing database..."
+    php artisan migrate:fresh
+    php artisan db:seed
+else
+    echo "*--> skipping migrations..."
+fi
+
+echo "*--> app successfully installed!"

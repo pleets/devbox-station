@@ -4,13 +4,13 @@ services:
   web:
     container_name: web_app
     build:
-      context: ./docker/web
+      context: services/web
     volumes:
       - type: bind
-        source: ./docker/web/etc/apache2/sites-available
+        source: ./services/web/etc/apache2/sites-available
         target: /etc/apache2/sites-available
       - type: bind
-        source: ./docker/web/docs
+        source: ./services/web/docs
         target: /var/www/sites/app.local.com
       - ${VHOSTS_DIR:-~/www}:/var/www/vhosts
     working_dir: /var/www/sites/app.local.com
@@ -28,13 +28,13 @@ services:
 
   db:
     container_name: web_app_db
-    build: ./docker/mysql
+    build: services/mysql
     ports:
       - "${BIND_DB_HOST:-127.0.0.1}:${BIND_DB_HOST_PORT:-3308}:3306"
     volumes:
       - data:/var/lib/mysql/
     env_file:
-      - ./docker/mysql/vars.env
+      - services/mysql/vars.env
     networks:
       app_network:
         ipv4_address: ${IPV4_NETWORK:-172.25.2}.11
@@ -44,7 +44,7 @@ services:
   redis:
     container_name: web_app_redis
     build:
-      context: ./docker/redis
+      context: services/redis
     restart: always
     deploy:
       resources:
@@ -53,7 +53,7 @@ services:
     ports:
       - "${BIND_REDIS_PORT:-6379}:6379"
     volumes:
-      - "./docker/redis/redis.conf:/etc/redis.conf"
+      - "./services/redis/redis.conf:/etc/redis.conf"
       - "redis:/storage"
     networks:
       app_network:
@@ -75,7 +75,7 @@ volumes:
     driver_opts:
       type: "none"
       o: "bind"
-      device: "./docker/redis/storage"
+      device: "./services/redis/storage"
 
 networks:
   app_network:
