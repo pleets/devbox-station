@@ -1,13 +1,17 @@
 # PHP Web Dockerfiles
 
-This project allows you to execute a PHP web based environment to execute your personal or business projects.
+This project allows you to run a PHP web environment to run your web projects by avoiding installing
+any software package on your machine other than docker and docker-compose.
 
 ## 1. Requirements
 
 You need the following software to run this project.
 
-- Docker
-- Docker compose
+- Docker v23+
+- Docker compose v1.29+
+
+We don't ensure compatibility for docker / docker-compose versions lower than the above. However, it's probable
+that this project runs on lower versions. We have not tested it yet, but you could do it.
 
 ## :gear: 2. Configuration
 
@@ -16,8 +20,8 @@ components and customize this project as your desire.
 
 ### 2.1 Web folder
 
-You need a folder inside your machine in which your web project files are located. By default, ~/www is taken.
-You can set up another folder with the env var. 
+You need a folder inside your machine in which your web project files are located. By default, `~/www is taken.
+You can set up another folder using the following env var. 
 
 ```dotenv
 VHOSTS_DIR=~/www
@@ -25,14 +29,23 @@ VHOSTS_DIR=~/www
 
 ### 2.2 Host names
 
-You need to set up the following hostnames in you local machine hosts file.
+You need to set up the following hostnames in you local machine hosts file. If you're using Linux usually you
+just need to modify file inside `/etc/hosts` in most of the cases.
 
 ```text
 127.0.0.1   app.local.com
 127.0.0.1   www.local.com
 ```
 
-You can also customize the IP address or port to point the container with the following env vars. 
+These sites are useful to get some important information about your environment. For example, you will access
+to `app.local.com` and you'll get all the information for PHP executed by `phpinfo` function (See
+[3.1 Running the project](# 31-running-the-project).
+
+The second site will show you all your web folders served by apache unless you have an `index.php` file
+inside it. In that case `www.local.com` is going to serve that file.
+
+You can also customize the IP address and port to point the container with the following env vars. The
+following are the default values per each var.
 
 ```dotenv
 BIND_WEB_HOST=127.0.0.1
@@ -68,18 +81,18 @@ IPV4_NETWORK=172.25.2
 
 ### 3.1 Running the project
 
-Execute the following command in the root project folder to build and start containers.
+Execute the following command in the root project folder to build and start all containers.
 
 ```bash
 docker-compose up -d --build
 ```
 
-To check if all was good enter in your browser to `http://app.local.com`. You'll see the PHP configuration executed
-by the `phpinfo()` function.
+To check if all was good type in your browser URL `http://app.local.com` and hit enter. You'll see the
+PHP configuration executed by the `phpinfo()` function.
 
 ![PHPInfo](https://blog.pleets.org/img/articles/phpinfo_php_web_dockerfiles.png)
 
-You can also see the "Index of" your web files accessing to `http://www.local.com`. If you have a `index.php` the server
+You can also see the "Index of" your web files by accessing `http://www.local.com`. If you have an `index.php` the server
 will render your file.
 
 To enter inside the terminal for the web container use the following command.
