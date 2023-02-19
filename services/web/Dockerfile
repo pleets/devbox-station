@@ -4,6 +4,8 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 # copy scripts and binaries
 COPY ./bin/ /usr/local/bin/
+COPY ./etc/apache2/apache2.conf /etc/apache2/apache2.conf
+COPY ./etc/apache2/docker-vhosts /etc/apache2/docker-vhosts
 RUN chmod +x /usr/local/bin/*
 
 RUN apt-get -y update \
