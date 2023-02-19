@@ -28,7 +28,7 @@ VHOSTS_DIR=~/www
 You need to set up the following hostnames in you local machine hosts file.
 
 ```text
-127.0.0.1	app.local.com
+127.0.0.1   app.local.com
 127.0.0.1   www.local.com
 ```
 
