@@ -61,7 +61,7 @@ services:
       - "${BIND_REDIS_PORT:-6379}:6379"
     volumes:
       - "./services/redis/redis.conf:/etc/redis.conf"
-      - "redis:/storage"
+      - redis:/storage
     networks:
       app_network:
         ipv4_address: ${IPV4_NETWORK:-172.25.2}.12
@@ -82,7 +82,7 @@ volumes:
     driver_opts:
       type: "none"
       o: "bind"
-      device: "./services/redis/storage"
+      device: "./user/data/redis"
 
 networks:
   app_network:

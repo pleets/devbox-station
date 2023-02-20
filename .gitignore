@@ -1,3 +1,4 @@
 .env
 .idea
+user/data/redis/*.rdb
 user/web/etc/apache2/sites-enabled/*.conf
