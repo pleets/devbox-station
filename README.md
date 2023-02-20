@@ -106,6 +106,8 @@ PHP configuration executed by the `phpinfo()` function.
 You can also see the "Index of" your web files by accessing `http://www.local.com`. If you have an `index.php` the server
 will render your file.
 
+![PHPInfo](https://blog.pleets.org/img/articles/index_of_directory_apache.png)
+
 ### 3.2 Accessing containers
 
 Use any of the following commands to enter the desired container.
