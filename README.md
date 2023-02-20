@@ -135,6 +135,9 @@ Also, you need to add the following entry to you `/etc/hosts`.
 127.0.0.1   new-site.com
 ```
 
+Note that by default, we've used the address `127.0.0.1`. You need to use the address defined by the env var 
+`BIND_WEB_HOST`. In most of the cases will be the same.
+
 Finally, you need to refresh your containers.
 
 ```bash
