@@ -115,3 +115,28 @@ docker exec -it web_app bash
 docker exec -it web_app_db bash
 docker exec -it web_app_redis bash
 ```
+
+### 3.3 Adding new virtual hosts
+
+You can add new virtual hosts by creating new files inside `user/vhosts`. For instance, let's say you have the
+folder `new-site` in your `VHOSTS_DIR` and you want to add the virtual host `new-site.com` for it. That said, you
+can create the file `user/vhosts/new-site.com.conf` with the following contents. 
+
+```apacheconf
+<VirtualHost *:80>
+    ServerName "new-site.com"
+    DocumentRoot "/var/www/vhosts/new-site/"
+</VirtualHost>
+```
+
+Also, you need to add the following entry to you `/etc/hosts`.
+
+```text
+127.0.0.1   new-site.com
+```
+
+Finally, you need to refresh your containers.
+
+```bash
+docker-compose down && docker-compose up --build -d
+```
