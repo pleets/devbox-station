@@ -15,7 +15,7 @@ services:
       - ${VHOSTS_DIR:-~/www}:/var/www/vhosts
     working_dir: /var/www/sites/app.local.com
     ports:
-      - "${BIND_WEB_HOST:-127.0.0.1}:${BIND_WEB_HOST_PORT:-80}:80"
+      - ${BIND_WEB_HOST:-127.0.0.1}:${BIND_WEB_HOST_PORT:-80}:80
     tty: true
     stdin_open: true
     depends_on:
@@ -31,7 +31,7 @@ services:
     build:
       context: services/mysql
     ports:
-      - "${BIND_DB_HOST:-127.0.0.1}:${BIND_DB_HOST_PORT:-3306}:3306"
+      - ${BIND_DB_HOST:-127.0.0.1}:${BIND_DB_HOST_PORT:-3306}:3306
     volumes:
       - type: bind
         source: ./user/mysql.conf.d
@@ -58,9 +58,9 @@ services:
         limits:
           memory: 128M
     ports:
-      - "${BIND_REDIS_PORT:-6379}:6379"
+      - ${BIND_REDIS_PORT:-6379}:6379
     volumes:
-      - "./services/redis/redis.conf:/etc/redis.conf"
+      - ./services/redis/redis.conf:/etc/redis.conf
       - redis:/storage
     networks:
       app_network:
@@ -71,12 +71,6 @@ services:
 volumes:
   data:
     driver: local
-  webdocs:
-    driver: local
-    driver_opts:
-      type: "none"
-      o: "bind"
-      device: "${HOME}/www"
   redis:
     driver: local
     driver_opts:
