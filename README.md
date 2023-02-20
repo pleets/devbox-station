@@ -77,6 +77,14 @@ BIND_REDIS_PORT=6379
 IPV4_NETWORK=172.25.2
 ```
 
+### 2.4 Data permissions
+
+Since redis db is created in the host machine, you need to run the following command to allow writing.
+
+```bash
+chmod o+rwx user/data/redis
+```
+
 ## :books: 3. Usage
 
 ### 3.1 Running the project
