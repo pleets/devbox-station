@@ -28,13 +28,20 @@ services:
 
   db:
     container_name: web_app_db
-    build: services/mysql
+    build:
+      context: services/mysql
     ports:
       - "${BIND_DB_HOST:-127.0.0.1}:${BIND_DB_HOST_PORT:-3306}:3306"
     volumes:
+      - type: bind
+        source: ./user/mysql/etc/mysql/mysql.conf.d
+        target: /etc/mysql/mysql.conf.d/
+      - type: bind
+        source: ./services/mysql/etc/mysql/conf.d/
+        target: /etc/mysql/conf.d/
       - data:/var/lib/mysql/
     env_file:
-      - services/mysql/vars.env
+      - .env
     networks:
       app_network:
         ipv4_address: ${IPV4_NETWORK:-172.25.2}.11
