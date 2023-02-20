@@ -7,7 +7,7 @@ services:
       context: services/web
     volumes:
       - type: bind
-        source: ./user/web/etc/apache2/sites-enabled
+        source: ./user/vhosts
         target: /etc/apache2/sites-enabled
       - type: bind
         source: ./services/web/docs
@@ -34,7 +34,7 @@ services:
       - "${BIND_DB_HOST:-127.0.0.1}:${BIND_DB_HOST_PORT:-3306}:3306"
     volumes:
       - type: bind
-        source: ./user/mysql/etc/mysql/mysql.conf.d
+        source: ./user/mysql.conf.d
         target: /etc/mysql/mysql.conf.d/
       - type: bind
         source: ./services/mysql/etc/mysql/conf.d/
