@@ -16,11 +16,16 @@ that this project runs on lower versions. We have not tested it yet, but you cou
 ## :gear: 2. Configuration
 
 Configuration is one of the most important things when you're setting up your projects. You can set up several
-components and customize this project as your desire.
+components and customize this project as your desire. The minimum configuration you need to do is to create a
+`.env` file in the root of this project. You can copy the `.env.example` file and modify it as you need.
+
+```shell
+cp .env.example .env
+```
 
 ### 2.1 Web folder
 
-You need a folder inside your machine in which your web project files are located. By default, `~/www is taken.
+You need a folder inside your machine in which your web project files are located. By default, `~/www is taken`.
 You can set up any other folder using the following env var. 
 
 ```dotenv
