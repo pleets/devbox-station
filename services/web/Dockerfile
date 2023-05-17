@@ -4,6 +4,17 @@ FROM php:${PHP_VERSION}-apache
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
+ARG NODE_VERSION=14
+ENV NODE_VERSION ${NODE_VERSION}
+
+##########################################################################################
+# Nuxt.js configuration
+#
+# NUXT_PORT is by default 3000.
+# NUXT_PORT in docker-compose only change the way you access from outside the container.
+##########################################################################################
+ENV NUXT_HOST=0.0.0.0
+
 # copy scripts and binaries
 COPY ./bin/ /usr/local/bin/
 COPY ./etc/apache2/apache2.conf /etc/apache2/apache2.conf
@@ -23,6 +34,9 @@ RUN apt-get -y update \
     && docker-php-ext-install pdo_mysql intl gd zip
 
 RUN pecl install redis && docker-php-ext-enable redis
+
+# NodeJS and NPM installation
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 
 ARG PUID=1000
 ENV PUID ${PUID}

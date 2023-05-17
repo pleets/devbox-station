@@ -53,8 +53,8 @@ You can also customize the IP address and port to point the container with the f
 following are the default values per each var.
 
 ```dotenv
-BIND_WEB_HOST=127.0.0.1
-BIND_WEB_HOST_PORT=80
+WEB_HOSTNAME=127.0.0.1
+WEB_HOSTNAME_PORT=80
 ```
 
 If you change these variables you need to change also your entries in the `/etc/hosts` and any other vhosts you
@@ -69,14 +69,14 @@ presented values are the default values per each env var.
 **Database**
 
 ```dotenv
-BIND_DB_HOST=127.0.0.1
-BIND_DB_HOST_PORT=3306
+DATABASE_HOST=127.0.0.1
+DATABASE_HOST_PORT=3306
 ```
 
 **Redis**
 
 ```dotenv
-BIND_REDIS_PORT=6379
+REDIS_PORT=6379
 ```
 
 **Network**
@@ -143,7 +143,7 @@ Also, you need to add the following entry to you `/etc/hosts`.
 ```
 
 Note that by default, we've used the address `127.0.0.1`. You need to use the address defined by the env var 
-`BIND_WEB_HOST`. In most of the cases will be the same.
+`WEB_HOSTNAME`. In most of the cases will be the same.
 
 Finally, you need to refresh your containers.
 
