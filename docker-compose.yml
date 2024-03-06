@@ -33,6 +33,8 @@ services:
 
   db:
     container_name: web_app_db
+    # force x86_64 architecture when running on a different platform
+    platform: linux/x86_64
     build:
       context: services/mysql
     ports:
