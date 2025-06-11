@@ -4,7 +4,7 @@ FROM php:${PHP_VERSION}-apache
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
-ARG NODE_VERSION=14
+ARG NODE_VERSION=20
 ENV NODE_VERSION ${NODE_VERSION}
 
 ##########################################################################################
