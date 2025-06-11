@@ -26,12 +26,14 @@ RUN apt-get -y update \
     libpng-dev \
     libzip-dev \
     libxml2-dev \
+    libgmp3-dev \
+    libsodium-dev \
     iputils-ping \
     vim \
     wget \
     unzip \
     && a2enmod rewrite \
-    && docker-php-ext-install pdo_mysql intl gd zip
+    && docker-php-ext-install pdo_mysql intl gd gmp ftp sodium
 
 RUN pecl install redis && docker-php-ext-enable redis
 
