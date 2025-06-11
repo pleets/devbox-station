@@ -1,7 +1,7 @@
-# PHP Web Dockerfiles
+# DevBox Station
 
-This project allows you to run a PHP web environment to execute your web projects by avoiding installing
-any software package on your machine other than `docker`  and `docker-compose`.
+This project provides a complete development environment for web applications, allowing you to run your projects by avoiding installing
+any software package on your machine other than `docker` and `docker-compose`. It supports both PHP and Node.js applications.
 
 ## 1. Requirements
 
