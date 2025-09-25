@@ -25,7 +25,7 @@ cp .env.example .env
 
 ### 2.1 Web folder
 
-You need a folder inside your machine in which your web project files are located. By default, `~/www is taken`.
+You need a folder inside your machine in which your web project files are located. By default, `~/www` is set up.
 You can set up any other folder using the following env var. 
 
 ```dotenv
@@ -50,7 +50,7 @@ The second site will show you all your web folders served by apache unless you h
 inside your `VHOSTS_DIR`. In that case `www.local.com` is going to serve that file.
 
 You can also customize the IP address and port to point the container with the following env vars. The
-following are the default values per each var.
+following are the default values provided.
 
 ```dotenv
 WEB_HOSTNAME=127.0.0.1
@@ -64,7 +64,7 @@ have created.
 
 Usually if you have mysql, redis or other services installed locally in your machine you'll need to change
 the bindings for that services in the container. Look at the following values to set up those services. The
-presented values are the default values per each env var.
+presented values are the default values provided.
 
 **Database**
 
