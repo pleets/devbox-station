@@ -26,6 +26,7 @@ RUN apt-get -y update \
     libpng-dev \
     libzip-dev \
     libxml2-dev \
+    libicu-dev \
     libgmp3-dev \
     libsodium-dev \
     iputils-ping \
