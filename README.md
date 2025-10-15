@@ -100,11 +100,14 @@ chmod o+rwx user/data/redis
 Execute the following command in the root project folder to build and start all containers.
 
 ```bash
-docker-compose up -d --build
+make start
 ```
 
-To check if all was good type in your browser URL `http://app.local.com` and hit enter. You'll see the
-PHP configuration executed by the `phpinfo()` function.
+To check if all was good type in your browser the URL `http://app.local.com` and hit enter. You might also have
+to specify the port if it's different than `80`. For instance, if you set up the env var `WEB_HOSTNAME_PORT=8080`
+you need to access `http://app.local.com:8080`.
+
+You'll see the PHP configuration executed by the `phpinfo()` function.
 
 ![PHPInfo](https://blog.pleets.org/img/articles/phpinfo_php_web_dockerfiles.png)
 
@@ -148,5 +151,5 @@ Note that by default, we've used the address `127.0.0.1`. You need to use the ad
 Finally, you need to refresh your containers.
 
 ```bash
-docker-compose down && docker-compose up --build -d
+make refresh
 ```
