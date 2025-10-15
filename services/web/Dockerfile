@@ -33,6 +33,8 @@ RUN apt-get -y update \
     vim \
     wget \
     unzip \
+    && apt clean \
+    && rm -rf /var/lib/apt/lists/*  \
     && a2enmod rewrite \
     && docker-php-ext-install pdo_mysql intl gd gmp ftp sodium
 
