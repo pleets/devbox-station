@@ -40,8 +40,25 @@ RUN apt-get -y update \
 
 RUN pecl install redis && docker-php-ext-enable redis
 
-# NodeJS and NPM installation
+# Create the directory for nvm
+RUN mkdir -p /opt/nvm
+
+# Set up nvm environment variables globally
+ENV NVM_DIR /opt/nvm
+ENV NODE_VERSION 18.19.0
+
+# Install nvm
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+
+# Activate nvm in bash profiles
+RUN echo "export NVM_DIR=${NVM_DIR}" >> /etc/profile.d/nvm.sh \
+    && echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" && [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"' >> /etc/profile.d/nvm.sh
+
+# Install Node.js version
+RUN . /etc/profile.d/nvm.sh && nvm install ${NODE_VERSION}
+
+# Add permissions to /etc/profile.d/nvm.sh
+RUN chmod +x /etc/profile.d/nvm.sh
 
 ARG PUID=1000
 ENV PUID ${PUID}
