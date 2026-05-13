@@ -1,10 +1,10 @@
-ARG PHP_VERSION=8.2
+ARG PHP_VERSION=8.4
 
 FROM php:${PHP_VERSION}-apache
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
-ARG NODE_VERSION=20
+ARG NODE_VERSION=24
 ENV NODE_VERSION ${NODE_VERSION}
 
 ##########################################################################################
@@ -45,7 +45,6 @@ RUN mkdir -p /opt/nvm
 
 # Set up nvm environment variables globally
 ENV NVM_DIR /opt/nvm
-ENV NODE_VERSION 18.19.0
 
 # Install nvm
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
