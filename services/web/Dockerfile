@@ -32,11 +32,16 @@ RUN apt-get -y update \
     iputils-ping \
     vim \
     wget \
-    unzip \
+    zip unzip \
+    openssl \
     && apt clean \
     && rm -rf /var/lib/apt/lists/*  \
     && a2enmod rewrite \
-    && docker-php-ext-install pdo_mysql intl gd gmp ftp sodium
+    && docker-php-ext-install \
+    pdo_mysql intl gd gmp ftp
+
+RUN docker-php-ext-install sodium
+RUN docker-php-ext-install xml zip
 
 RUN pecl install redis && docker-php-ext-enable redis
 
