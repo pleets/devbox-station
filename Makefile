@@ -8,7 +8,8 @@ stop:
 	docker compose stop
 
 shell:
-	docker exec -it -u appuser web_app /bin/bash
+    # start a login shell with -l so that nvm is sourced
+	docker exec -it -u appuser web_app /bin/bash -l
 
 shell-root:
 	docker exec -it web_app /bin/bash
