@@ -71,10 +71,10 @@ ENV PGID ${PGID}
 
 RUN useradd -u ${PUID} -g www-data -m appuser
 
-# Entry point
-USER root
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
+
+USER appuser
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
