@@ -36,7 +36,7 @@ RUN apt-get -y update \
     openssl \
     && apt clean \
     && rm -rf /var/lib/apt/lists/*  \
-    && a2enmod rewrite \
+    && a2enmod rewrite headers \
     && docker-php-ext-install \
     pdo_mysql intl gd gmp ftp
 
