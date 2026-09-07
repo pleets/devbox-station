@@ -29,16 +29,20 @@ RUN apt-get -y update \
     libicu-dev \
     libgmp3-dev \
     libsodium-dev \
-    iputils-ping \
-    vim \
-    wget \
-    zip unzip \
-    openssl \
-    && apt clean \
-    && rm -rf /var/lib/apt/lists/*  \
-    && a2enmod rewrite headers \
-    && docker-php-ext-install \
-    pdo_mysql intl gd gmp ftp
+    && apt clean
+
+RUN apt-get -y install \
+    iputils-ping  \
+     vim \
+     wget \
+     w3m \
+     zip unzip \
+     openssl  \
+     && rm -rf /var/lib/apt/lists/*
+
+RUN a2enmod rewrite
+RUN docker-php-ext-install pdo_mysql intl
+RUN docker-php-ext-install gd gmp ftp
 
 RUN docker-php-ext-install sodium
 RUN docker-php-ext-install xml zip
