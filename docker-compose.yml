@@ -7,12 +7,12 @@ services:
         PHP_VERSION: ${PHP_VERSION:-8.2}
     volumes:
       - type: bind
-        source: ./user/vhosts
+        source: ./user/web/vhosts
         target: /etc/apache2/sites-enabled
       - type: bind
         source: ./services/web/docs
         target: /var/www/sites/app.local.com
-      - ${VHOSTS_DIR:-~/www}:/var/www/vhosts
+      - ${VHOSTS_DIR:-~/devbox-apps/web}:/var/www/vhosts
     working_dir: /var/www/sites/app.local.com
     ports:
       - ${WEB_HOSTNAME:-127.0.0.1}:${WEB_HOSTNAME_PORT:-80}:80
