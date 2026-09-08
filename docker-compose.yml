@@ -4,7 +4,7 @@ services:
     build:
       context: services/web
       args:
-        PHP_VERSION: ${PHP_VERSION:-8.2}
+        PHP_VERSION: ${WEB_PHP_VERSION:-8.2}
     volumes:
       - type: bind
         source: ./user/web/vhosts
@@ -12,20 +12,20 @@ services:
       - type: bind
         source: ./services/web/docs
         target: /var/www/sites/app.local.com
-      - ${VHOSTS_DIR:-~/devbox-apps/web}:/var/www/vhosts
+      - ${WEB_VHOSTS_DIR:-~/devbox-apps/web}:/var/www/vhosts
     working_dir: /var/www/sites/app.local.com
     ports:
       - ${WEB_HOSTNAME:-127.0.0.1}:${WEB_HOSTNAME_PORT:-80}:80
-      - ${WEB_HOSTNAME:-127.0.0.1}:${NUXT_PORT:-3000}:3000
+      - ${WEB_HOSTNAME:-127.0.0.1}:${WEB_NUXT_PORT:-3000}:3000
     tty: true
     stdin_open: true
     depends_on:
       - db
     env_file:
-      - .env
+      - .env.web
     networks:
       app_network:
-        ipv4_address: ${IPV4_NETWORK:-172.25.2}.10
+        ipv4_address: ${WEB_IPV4_NETWORK:-172.25.2}.10
         aliases:
           - application
 

@@ -28,12 +28,14 @@ RUN apt-get -y update \
     libxml2-dev \
     libicu-dev \
     libgmp3-dev \
+    libssl-dev \
     libsodium-dev \
     && apt clean
 
 RUN apt-get -y install \
+    --no-install-recommends \
     iputils-ping  \
-     vim \
+     vim-tiny \
      wget \
      w3m \
      zip unzip \
