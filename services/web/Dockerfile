@@ -42,7 +42,7 @@ RUN apt-get -y install \
      openssl  \
      && rm -rf /var/lib/apt/lists/*
 
-RUN a2enmod rewrite
+RUN a2enmod rewrite headers
 RUN docker-php-ext-install pdo_mysql intl
 RUN docker-php-ext-install gd gmp ftp
 
@@ -60,15 +60,17 @@ ENV NVM_DIR /opt/nvm
 # Install nvm
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 
-# Activate nvm in bash profiles
+# Activate nvm in bash profiles (nvm CLI in login shells)
 RUN echo "export NVM_DIR=${NVM_DIR}" >> /etc/profile.d/nvm.sh \
-    && echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" && [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"' >> /etc/profile.d/nvm.sh
+    && echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" && [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"' >> /etc/profile.d/nvm.sh \
+    && chmod +x /etc/profile.d/nvm.sh
 
-# Install Node.js version
-RUN . /etc/profile.d/nvm.sh && nvm install ${NODE_VERSION}
-
-# Add permissions to /etc/profile.d/nvm.sh
-RUN chmod +x /etc/profile.d/nvm.sh
+# Install Node.js and expose node/npm/npx on PATH for non-login shells (entrypoint, deploy scripts)
+RUN . "$NVM_DIR/nvm.sh" \
+    && nvm install ${NODE_VERSION} \
+    && ln -sf "$(command -v node)" /usr/local/bin/node \
+    && ln -sf "$(command -v npm)" /usr/local/bin/npm \
+    && ln -sf "$(command -v npx)" /usr/local/bin/npx
 
 ARG PUID=1000
 ENV PUID ${PUID}
