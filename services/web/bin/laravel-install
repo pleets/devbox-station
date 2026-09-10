@@ -1,8 +1,7 @@
 #!/bin/sh
 
 set -o errexit
-
-cd /var/www/sites/app.local.com
+set -o pipefail
 
 # ----------------------
 # LARAVEL INSTALLATION
@@ -33,5 +32,9 @@ if [ "$refresh" = "y" ]; then
 else
     echo "*--> skipping migrations..."
 fi
+
+echo "*--> running npm..."
+npm install
+npm run build
 
 echo "*--> app successfully installed!"
